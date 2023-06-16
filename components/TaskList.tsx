@@ -16,9 +16,16 @@ import type { PrimitiveAtom } from "jotai";
 import { tasksAtom } from "@/store";
 import type { Task } from "@/store";
 
-type TaskItemProps = {
+// todo: form validation
+// todo: merge reminders and make time optional
+// todo: add snooze button when timer expires
+// todo: add some styling for when timer expires
+// todo: reorder tasks via drag/drop
+
+interface TaskItemProps {
   atom: PrimitiveAtom<Task>;
-};
+}
+
 const TaskItem = ({ atom }: TaskItemProps) => {
   const [item, setItem] = useAtom(atom);
   const setTasks = useSetAtom(tasksAtom);
