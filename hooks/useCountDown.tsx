@@ -1,28 +1,27 @@
 import { useEffect, useState } from "react";
 
-const useCountDown = (minutes: number) => {
-  const milliseconds = minutes * 60 * 1000;
+const useCountDown = (initialMinutes: number) => {
+  const timeInMilliseconds = initialMinutes * 60 * 1000;
 
-  const [millisecondsRemaining, setMillisecondsRemaining] =
-    useState(milliseconds);
+  const [timeRemaining, setTimeRemaining] = useState(timeInMilliseconds);
+
+  const increaseTimerBy = (minutes: number) =>
+    setTimeRemaining((prev) => prev + minutes * 60 * 1000);
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setMillisecondsRemaining((prev) => prev - 1000);
+      setTimeRemaining((prev) => prev - 1000);
     }, 1000);
 
     return () => clearInterval(interval);
   }, []);
 
-  return getReturnValues(millisecondsRemaining);
-};
+  // Calculate time remaining in largest-to-smallest increments
+  const hours = Math.floor(timeRemaining / (1000 * 60 * 60));
+  const minutes = Math.floor((timeRemaining % (1000 * 60 * 60)) / (1000 * 60));
+  const seconds = Math.floor((timeRemaining % (1000 * 60)) / 1000);
 
-const getReturnValues = (countDown: number) => {
-  const hours = Math.floor(countDown / (1000 * 60 * 60));
-  const minutes = Math.floor((countDown % (1000 * 60 * 60)) / (1000 * 60));
-  const seconds = Math.floor((countDown % (1000 * 60)) / 1000);
-
-  return { hours, minutes, seconds };
+  return { hours, minutes, seconds, increaseTimerBy, total: timeRemaining };
 };
 
 export default useCountDown;

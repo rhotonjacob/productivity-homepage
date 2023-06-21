@@ -1,12 +1,10 @@
-import TaskList from "@/components/TaskList";
-import ReminderList from "@/components/ReminderList";
+import Planner from "@/components/Planner/Planner";
 
 export default function Home() {
   return (
     <div>
       <h2>Greetings</h2>
-      <TaskList />
-      <ReminderList />
+      <Planner />
     </div>
   );
 }

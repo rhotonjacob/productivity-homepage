@@ -3,14 +3,13 @@ import type { PrimitiveAtom } from "jotai";
 
 export interface Task {
   message: string;
-  isComplete: boolean;
+  isCrossed: boolean;
 }
 
 export const tasksAtom = atom<PrimitiveAtom<Task>[]>([]);
 
-export interface Reminder {
-  message: string;
-  timeToComplete: number;
+export interface Reminder extends Task {
+  timer: number;
 }
 
 export const remindersAtom = atom<PrimitiveAtom<Reminder>[]>([]);
